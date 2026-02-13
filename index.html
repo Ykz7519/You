@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pour toi... 🌹</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6e6;
+            margin: 0;
+            overflow: hidden; /* Empêche de scroller partout */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container { padding: 20px; position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;}
+        #yesBtn { background-color: #4CAF50; color: white; border: none; padding: 15px 30px; font-size: 18px; cursor: pointer; border-radius: 50px; transition: 0.2s; z-index: 10; }
+        #noBtn { background-color: #f44336; color: white; border: none; padding: 15px 30px; font-size: 18px; cursor: pointer; border-radius: 50px; position: absolute; transition: 0.1s; }
+        img { width: 180px; margin-bottom: 20px; border-radius: 20px; }
+        h1 { font-size: 1.5rem; color: #d63384; }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <img id="gif" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3pueWp4eGZ3bmZ3bmZ3/v1.Y2lkPTc5MGI3NjExM3pueWp4eGZ3bmZ3bmZ3/l41lTfHODZ8L6XGak/giphy.gif">
+        <h1 id="question">Veux-tu être ma Valentine ? 🌹</h1>
+        <div style="margin-top: 30px;">
+            <button id="yesBtn" onclick="celebrate()">Oui</button>
+            <button id="noBtn" onclick="moveButton()" onmouseover="moveButton()">Non</button>
+        </div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        function moveButton() {
+            clickCount++;
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+           
+            // 1. On déplace le bouton NON mais pas trop loin
+            const padding = 50;
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
+           
+            noBtn.style.left = Math.max(padding, x) + 'px';
+            noBtn.style.top = Math.max(padding, y) + 'px';
+
+            // 2. On fait grossir le bouton OUI beaucoup plus vite (BOUM !)
+            const newSize = 18 + (clickCount * 15); // +15 pixels à chaque fois
+            yesBtn.style.fontSize = newSize + 'px';
+            yesBtn.style.padding = (15 + clickCount * 5) + 'px ' + (30 + clickCount * 10) + 'px';
+
+            // 3. Petit message qui change pour le bouton non
+            const phrases = ["Tu es sûre ?", "Vraiment ?", "Réfléchis bien...", "Allez steuplaît", "Gros bisou ?", "T'as pas le choix !"];
+            noBtn.innerText = phrases[Math.min(clickCount, phrases.length - 1)];
+        }
+
+        function celebrate() {
+            document.getElementById('main-container').innerHTML = `
+                <img src=https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3pueWp4eGZ3bmZ3bmZ3/3o7TKoWXlo3M1nKSYw/giphy.gif">
+                <h1>OUIIIII ! Je t'aime ! ❤️❤️❤️</h1>
+            `;
+        }
+    </script>
+</body>
+</html>
